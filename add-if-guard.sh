@@ -32,7 +32,7 @@ shift $((OPTIND - 1))
 
 if [ "$1" = "" ]; then
   print_usage
-	exit
+  exit
 fi
 
 filename=$(basename "$1")
@@ -40,10 +40,10 @@ extension=${filename##*.}
 
 add_ifguard()
 {
-    local file=$1
-		sed -i "1i#ifndef $(echo $filename | tr '[:lower:]' '[:upper:]' | tr '.' "_")" ${file}
-		sed -i "2i#define $(echo $filename | tr '[:lower:]' '[:upper:]' | tr '.' "_")" ${file}
-		echo "#endif" >> $1
+  local file=$1
+  sed -i "1i#ifndef $(echo $filename | tr '[:lower:]' '[:upper:]' | tr '.' "_")" ${file}
+  sed -i "2i#define $(echo $filename | tr '[:lower:]' '[:upper:]' | tr '.' "_")" ${file}
+  echo "#endif" >> $1
 }
 
 if [ "$extension" != "hpp" -a "$extension" != "h" ]; then
@@ -52,7 +52,7 @@ if [ "$extension" != "hpp" -a "$extension" != "h" ]; then
   else
     read -p "$1 is not a header file. Do you want to continue anyway? [y/n]" -n 1 -r
     echo    # (optional) move to a new line
-	  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
       add_ifguard $1
     fi
   fi
